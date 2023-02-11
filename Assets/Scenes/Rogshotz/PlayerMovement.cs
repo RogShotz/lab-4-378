@@ -8,16 +8,27 @@ public class PlayerMovement : MonoBehaviour
     //Check LeftCheck and RightCheck and how it takes the isFacingRight boolean.
     private float horizontal;
     private float speed = 8f;
+    private float scrollSpeed = 10f;
     private float jumpingPower = 16f;
     private bool isFacingRight = true;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform cameraCheck;
+    [SerializeField] private LayerMask inCamera;
+
+    public PlayerCamera camScript;
 
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
+        if (!InCamera()) {
+            Debug.Log("Not In camera");
+            scrollSpeed = 0f;
+
+            camScript.speed = 0f;
+        }
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -37,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        rb.velocity = new Vector2(horizontal * speed + scrollSpeed, rb.velocity.y);
     }
 
     private bool IsGrounded()
@@ -45,6 +56,11 @@ public class PlayerMovement : MonoBehaviour
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 
+
+    private bool InCamera()
+    {
+        return Physics2D.OverlapCircle(cameraCheck.position, 0.2f, inCamera);
+    }
     private void Flip()
     {
         if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
