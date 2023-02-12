@@ -68,3 +68,6 @@ UserSettings/Layouts/CurrentMaximizeLayout.dwlt
 UserSettings/EditorUserSettings.asset
 ProjectSettings/TagManager.asset
 UserSettings/Layouts/CurrentMaximizeLayout.dwlt
+
+# misc.
+.DS_Store
