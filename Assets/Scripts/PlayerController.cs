@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
         if (rb.velocity.x < maxSpeed)
             rb.AddForce(new Vector2(acceleration * Time.fixedDeltaTime, 0) * rb.mass);
         
+        // adapted from https://www.youtube.com/watch?v=j111eKN8sJw
         if (isJumping) {
             if (IsGrounded()) jumpTimer = jumpHold;
             if (jumpTimer > 0) {
