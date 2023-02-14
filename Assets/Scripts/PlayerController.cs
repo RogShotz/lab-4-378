@@ -5,13 +5,16 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public Animator animator;
     public float maxSpeed = 7f;
     public float acceleration = 500f;
     public float jumpForce = 6f;
     public float jumpHold = 0.35f;
     private float jumpTimer = 0f;
     private bool isJumping = false;
+    private bool hasLiftedOff = false; // Used with jumping animation
     private Rigidbody2D rb;
+    
 
     void Start()
     {
@@ -26,7 +29,7 @@ public class PlayerController : MonoBehaviour
         // adapted from https://www.youtube.com/watch?v=j111eKN8sJw
         if (isJumping) {
             if (IsGrounded()) jumpTimer = jumpHold;
-            if (jumpTimer > 0) {
+            if (jumpTimer > 0 && hasLiftedOff) {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 jumpTimer -= Time.fixedDeltaTime;
             }
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
         } else {
             isJumping = false;
         }
+        animator.SetBool("IsJumping", isJumping);
     }
 
     void OnCrouch(InputValue value)
@@ -59,18 +63,29 @@ public class PlayerController : MonoBehaviour
     bool IsGrounded()
     {
         return Physics2D.OverlapBox(
-            transform.position - new Vector3(0, transform.localScale.y / 2, 0),
+            transform.position - new Vector3(0, transform.localScale.y / 6, 0),
             new Vector2(transform.localScale.x - 0.1f, 0.1f),
             0,
             LayerMask.GetMask("Ground")
         );
     }
 
+    void LiftedOff()
+    {
+        hasLiftedOff = true;
+    }
+
+    void Landed()
+    {
+        hasLiftedOff = false;
+    }
+
     void OnDrawGizmos()
     {
+        // float height = (RectTransform).rect.height;
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(
-            transform.position - new Vector3(0, transform.localScale.y / 2, 0),
+            transform.position - new Vector3(0, transform.localScale.y / 6, 0),
             new Vector2(transform.localScale.x - 0.1f, 0.1f)
         );
     }
