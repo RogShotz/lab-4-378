@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+
     public float maxSpeed = 7f;
     public float acceleration = 500f;
     public float jumpForce = 6f;
@@ -14,11 +15,18 @@ public class PlayerController : MonoBehaviour
     private bool isJumping = false;
     private bool hasLiftedOff = false; // Used in Alex_Jump animation event
     private Rigidbody2D rb;
-    
 
+    private BoxCollider2D bc;
+    private Vector2 defaultColliderOffset; 
+    private Vector2 defaultColliderSize; 
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        bc = GetComponent<BoxCollider2D>();
+        defaultColliderOffset = bc.offset;
+        defaultColliderSize = bc.size;
     }
 
     void FixedUpdate()
@@ -45,6 +53,11 @@ public class PlayerController : MonoBehaviour
         maxSpeed += Time.fixedDeltaTime * 0.1f; // Increase max speed by 1 every 10 seconds
     }
 
+    void HoldPose()
+    {
+        animator.speed = 0;
+    }
+
     void OnJump(InputValue value)
     {
         if (value.isPressed) {
@@ -59,17 +72,16 @@ public class PlayerController : MonoBehaviour
 
     void OnCrouch(InputValue value)
     {
-        // TODO: Implement crouching
         if (value.isPressed) {
-            // Crouch
+            bc.offset = new Vector2(bc.offset.x, bc.offset.y * -100);
+            bc.size = new Vector2(bc.size.x, bc.size.y * 0.8125f);
+            animator.SetBool("IsCrouching", true);
         } else {
-            // Stand up
+            animator.SetBool("IsCrouching", false);
+            animator.speed = 1;
+            bc.offset = defaultColliderOffset;
+            bc.size = defaultColliderSize;
         }
-    }
-
-    void HoldPose()
-    {
-        animator.speed = 0;
     }
 
     void LiftedOff()
