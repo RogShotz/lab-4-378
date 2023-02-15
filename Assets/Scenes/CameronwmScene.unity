@@ -974,6 +974,7 @@ MonoBehaviour:
   acceleration: 500
   jumpForce: 6
   jumpHold: 0.35
+  isJumping: 0
 --- !u!114 &1935191318
 MonoBehaviour:
   m_ObjectHideFlags: 0

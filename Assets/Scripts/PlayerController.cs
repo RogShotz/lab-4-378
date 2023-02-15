@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float jumpHold = 0.35f;
     private float jumpTimer = 0f;
     private bool isJumping = false;
-    private bool hasLiftedOff = false; // Used with jumping animation
+    private bool hasLiftedOff = false; // Used in Alex_Jump animation event
     private Rigidbody2D rb;
     
 
@@ -25,6 +25,13 @@ public class PlayerController : MonoBehaviour
     {
         if (rb.velocity.x < maxSpeed)
             rb.AddForce(new Vector2(acceleration * Time.fixedDeltaTime, 0) * rb.mass);
+
+        if (IsGrounded() && animator.speed == 0 && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Alex_Jump")
+        {
+            hasLiftedOff = false;
+            animator.speed = 1;
+            animator.SetBool("IsJumping", false);
+        }
         
         // adapted from https://www.youtube.com/watch?v=j111eKN8sJw
         if (isJumping) {
@@ -44,10 +51,10 @@ public class PlayerController : MonoBehaviour
             if (IsGrounded()) jumpTimer = jumpHold;
             else jumpTimer = 0;
             isJumping = true;
+            animator.SetBool("IsJumping", true);
         } else {
             isJumping = false;
         }
-        animator.SetBool("IsJumping", isJumping);
     }
 
     void OnCrouch(InputValue value)
@@ -60,6 +67,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void HoldPose()
+    {
+        animator.speed = 0;
+    }
+
+    void LiftedOff()
+    {
+        hasLiftedOff = true;
+    }
+
     bool IsGrounded()
     {
         return Physics2D.OverlapBox(
@@ -70,19 +87,8 @@ public class PlayerController : MonoBehaviour
         );
     }
 
-    void LiftedOff()
-    {
-        hasLiftedOff = true;
-    }
-
-    void Landed()
-    {
-        hasLiftedOff = false;
-    }
-
     void OnDrawGizmos()
     {
-        // float height = (RectTransform).rect.height;
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(
             transform.position - new Vector3(0, transform.localScale.y / 6, 0),
