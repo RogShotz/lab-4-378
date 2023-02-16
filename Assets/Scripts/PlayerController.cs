@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     private float jumpTimer = 0f;
     private bool isJumping = false;
     private bool isCrouching = false;
-    private bool hasLiftedOff = false; // Used in Alex_Jump animation event
     private Rigidbody2D rb;
 
     private BoxCollider2D bc;
@@ -38,7 +37,6 @@ public class PlayerController : MonoBehaviour
 
         if (IsGrounded() && animator.speed == 0 && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Alex_Jump")
         {
-            hasLiftedOff = false;
             animator.speed = 1;
             animator.SetBool("IsJumping", false);
         }
@@ -46,7 +44,7 @@ public class PlayerController : MonoBehaviour
         // adapted from https://www.youtube.com/watch?v=j111eKN8sJw
         if (isJumping) {
             if (IsGrounded()) jumpTimer = jumpHold;
-            if (jumpTimer > 0 && hasLiftedOff) {
+            if (jumpTimer > 0) {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 jumpTimer -= Time.fixedDeltaTime;
             }
@@ -93,11 +91,6 @@ public class PlayerController : MonoBehaviour
             isCrouching = false;
             animator.speed = 1;
         }
-    }
-
-    void LiftedOff()
-    {
-        hasLiftedOff = true;
     }
 
     bool IsGrounded()
