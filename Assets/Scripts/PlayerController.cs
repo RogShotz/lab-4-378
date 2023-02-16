@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviour
         } else {
             isCrouching = false;
             animator.SetBool("IsCrouching", false);
-            animator.speed = 1;
             bc.offset = Vector2.Lerp(bc.offset, defaultColliderOffset, Time.fixedDeltaTime / crouchTransTime);
             bc.size = Vector2.Lerp(bc.size, defaultColliderSize, Time.fixedDeltaTime / crouchTransTime);
         }
@@ -89,7 +88,11 @@ public class PlayerController : MonoBehaviour
     void OnCrouch(InputValue value)
     {
         if (value.isPressed) isCrouching = true;
-        else isCrouching = false;
+        else 
+        {
+            isCrouching = false;
+            animator.speed = 1;
+        }
     }
 
     void LiftedOff()
