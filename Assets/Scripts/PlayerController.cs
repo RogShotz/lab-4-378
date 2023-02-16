@@ -115,11 +115,8 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue value)
     {
-        if (value.Get<Vector2>() != Vector2.zero) 
-        {
-            move = value.Get<Vector2>().x * 4f;
-            if (move > 0) animator.SetBool("IsSpeedingUp", true);
-        }
+        move = value.Get<Vector2>().x * 4f;
+        if (move > 0) animator.SetBool("IsSpeedingUp", true);
         else animator.SetBool("IsSpeedingUp", false);
     }
 

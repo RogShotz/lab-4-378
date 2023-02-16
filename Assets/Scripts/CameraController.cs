@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        TargetPosition = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
+        TargetPosition = new Vector3(player.transform.position.x, player.transform.position.y + 2f, transform.position.z);
     }
 
     // Update is called once per frame
@@ -27,8 +27,8 @@ public class CameraController : MonoBehaviour
     {
         TargetPosition = new Vector3(
             TargetPosition.x + player.maxSpeed * Time.fixedDeltaTime,
-            player.transform.position.y,
-            TargetPosition.z
+            player.transform.position.y + 2f,
+            transform.position.z
         );
     }
 }
