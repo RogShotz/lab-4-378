@@ -14,7 +14,7 @@ public class CarMovement : MonoBehaviour
     {
         if (InCamera())
         {
-            Debug.Log("Car Trigger");
+            // Debug.Log("Car Trigger");
             speed = -4f;
         } else {
             speed = 0f;
