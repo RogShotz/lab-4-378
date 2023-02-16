@@ -697,7 +697,7 @@ GameObject:
   - component: {fileID: 1453929654}
   - component: {fileID: 1453929656}
   - component: {fileID: 1453929655}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1086,6 +1086,7 @@ MonoBehaviour:
   acceleration: 500
   jumpForce: 6
   jumpHold: 0.35
+  crouchTransTime: 0.15
 --- !u!114 &1935191318
 MonoBehaviour:
   m_ObjectHideFlags: 0
