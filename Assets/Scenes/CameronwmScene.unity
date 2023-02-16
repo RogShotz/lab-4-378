@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 731835532}
   - component: {fileID: 731835534}
   - component: {fileID: 731835533}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 1453929654}
   - component: {fileID: 1453929656}
   - component: {fileID: 1453929655}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
