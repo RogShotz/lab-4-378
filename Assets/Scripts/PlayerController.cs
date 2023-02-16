@@ -7,11 +7,12 @@ public class PlayerController : MonoBehaviour
 {
     public Animator animator;
 
-    public float maxSpeed = 7f;
+    public float maxSpeed = 5f;
     public float acceleration = 500f;
     public float jumpForce = 6f;
     public float jumpHold = 0.35f;
     public float crouchTransTime = 0.15f;
+    private float maxSpeedTarget;
     private float jumpTimer = 0f;
     private bool isJumping = false;
     private bool isCrouching = false;
@@ -19,7 +20,8 @@ public class PlayerController : MonoBehaviour
 
     private BoxCollider2D bc;
     private Vector2 defaultColliderOffset; 
-    private Vector2 defaultColliderSize; 
+    private Vector2 defaultColliderSize;
+    private float move;
     
     void Start()
     {
@@ -28,12 +30,15 @@ public class PlayerController : MonoBehaviour
         bc = GetComponent<BoxCollider2D>();
         defaultColliderOffset = bc.offset;
         defaultColliderSize = bc.size;
+        maxSpeedTarget = maxSpeed;
     }
 
     void FixedUpdate()
     {
-        if (rb.velocity.x < maxSpeed)
+        if (rb.velocity.x < maxSpeed + move)
             rb.AddForce(new Vector2(acceleration * Time.fixedDeltaTime, 0) * rb.mass);
+        maxSpeedTarget = Mathf.Clamp(rb.velocity.x, 0, maxSpeed + move);
+        rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(maxSpeedTarget, rb.velocity.y), Time.fixedDeltaTime * 6f);
 
         if (IsGrounded() && animator.speed == 0 && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Alex_Jump")
         {
@@ -91,6 +96,11 @@ public class PlayerController : MonoBehaviour
             isCrouching = false;
             animator.speed = 1;
         }
+    }
+
+    void OnMove(InputValue value)
+    {
+        move = value.Get<Vector2>().x * 4f;
     }
 
     bool IsGrounded()
