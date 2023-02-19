@@ -384,10 +384,6 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 703366741}
-    - target: {fileID: 1373627263552369312, guid: 6174693e956f73d4eb7d3e1fd727a63c, type: 3}
-      propertyPath: distanceFromCameraCenter
-      value: -5
-      objectReference: {fileID: 0}
     - target: {fileID: 1373627263552369318, guid: 6174693e956f73d4eb7d3e1fd727a63c, type: 3}
       propertyPath: m_Name
       value: Eugene
