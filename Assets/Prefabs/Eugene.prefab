@@ -95,12 +95,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1373627263552369318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85fe10c49ba024a3493fd86f0044535f, type: 3}
+  m_Script: {fileID: 11500000, guid: 51ca4635fb9c42a479c3b71b7751428d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1373627263552369313}
   player: {fileID: 0}
   mainCamera: {fileID: 0}
-  distanceFromCameraCenter: -17
+  distanceFromCameraCenter: -8
 --- !u!95 &1373627263552369313
 Animator:
   serializedVersion: 5
@@ -111,7 +112,7 @@ Animator:
   m_GameObject: {fileID: 1373627263552369318}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9740db1905bce473c89b496620bba03c, type: 2}
+  m_Controller: {fileID: 9100000, guid: f0eb9caa21f10ba4cb0a4dd268c91e0a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
