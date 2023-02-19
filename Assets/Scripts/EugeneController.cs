@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class EugeneController : MonoBehaviour
 {
+    public Animator animator;
     public GameObject player;
     public GameObject mainCamera;
-    public float distanceFromCameraCenter = -17;
+    public float distanceFromCameraCenter; // TODO do this programmatically
+
+    void Start()
+    {
+        animator.speed = 0.25f;
+    }
 
     void Update()
     {
