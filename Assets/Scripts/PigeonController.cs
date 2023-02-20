@@ -4,10 +4,33 @@ using UnityEngine;
 
 public class PigeonController : MonoBehaviour
 {
+    private GameObject enemy;
+    public float movementAmountPerUpdate = 2f;
 
-    public float moveSpace;
+    void Start()
+    {
+        enemy = GameObject.Find("Eugene");
+    }
+
     void Update()
     {
-        transform.position = new Vector2(transform.position.x - moveSpace, transform.position.y);
+        if (enemy.transform.position.x > transform.position.x)
+        {
+            transform.position = new Vector2(
+                transform.position.x - movementAmountPerUpdate, 
+                transform.position.y + movementAmountPerUpdate
+            );
+        } 
+        else if (enemy.transform.position.x > transform.position.x + 2f)
+        {
+            Destroy(gameObject);
+        } 
+        else
+        {
+            transform.position = new Vector2(
+                transform.position.x - movementAmountPerUpdate, 
+                transform.position.y
+            );
+        }
     }
 }
