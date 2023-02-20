@@ -184,6 +184,9 @@ MonoBehaviour:
   jumpForce: 6
   jumpHold: 0.35
   crouchTransTime: 0.15
+  inCamera:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!95 &77192599784485087
 Animator:
   serializedVersion: 5
