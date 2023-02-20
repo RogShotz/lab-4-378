@@ -181,7 +181,7 @@ MonoBehaviour:
   animator: {fileID: 77192599784485087}
   maxSpeed: 5
   acceleration: 500
-  jumpForce: 6
+  jumpForce: 8
   jumpHold: 0.35
   crouchTransTime: 0.15
   inCamera:
