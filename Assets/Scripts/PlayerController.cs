@@ -6,16 +6,15 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-    public AudioSource ridingAudioSource;
-    public AudioSource landingAudioSource;
-    public AudioSource collisionAudioSource;
-
     public float maxSpeed = 5f;
     public float acceleration = 500f;
     public float jumpForce = 6f;
     public float jumpHold = 0.35f;
     public float crouchTransTime = 0.15f;
     public GameObject deathPanel;
+    private AudioSource ridingAudioSource;
+    private AudioSource landingAudioSource;
+    private AudioSource collisionAudioSource;
     private Vector3 startingPosition;
     private float maxSpeedStart;
     private float maxSpeedTarget;
