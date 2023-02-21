@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 6f;
     public float jumpHold = 0.35f;
     public float crouchTransTime = 0.15f;
+    public GameObject deathPanel;
+    private Vector3 startingPosition;
+    private float maxSpeedStart;
     private float maxSpeedTarget;
     private float jumpTimer = 0f;
     private bool isJumping = false;
@@ -27,19 +30,46 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
         bc = GetComponent<BoxCollider2D>();
         defaultColliderOffset = bc.offset;
         defaultColliderSize = bc.size;
         maxSpeedTarget = maxSpeed;
+        maxSpeedStart = maxSpeed;
+
+        startingPosition = transform.position;
+    }
+
+    public void Reset()
+    {
+        transform.position = startingPosition;
+        rb.velocity = Vector2.zero;
+        maxSpeed = maxSpeedStart;
+        maxSpeedTarget = maxSpeed;
+        isJumping = false;
+        isCrouching = false;
+        animator.SetBool("IsJumping", false);
+        animator.SetBool("IsCrouching", false);
+        animator.SetBool("IsSpeedingUp", false);
+        animator.speed = 1f;
+
+        bc.offset = defaultColliderOffset;
+        bc.size = defaultColliderSize;
+
+        CarController[] cars = GameObject.FindObjectsOfType<CarController>();
+        foreach (CarController car in cars) car.Reset();
+        CameraController camera = GameObject.FindObjectOfType<CameraController>();
+        camera.Reset();
+        EugeneController eugene = GameObject.FindObjectOfType<EugeneController>();
+        eugene.Reset();
+
+        deathPanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     void FixedUpdate()
     {
-        if (!InCamera())
-        {
-            Debug.Log("Dead");
-            Time.timeScale = 0f;
+        if (!InCamera()) {
+            OnDeath();
         }
 
         if (rb.velocity.x < maxSpeed + move)
@@ -120,6 +150,14 @@ public class PlayerController : MonoBehaviour
         else animator.SetBool("IsSpeedingUp", false);
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Fatal"))
+        {
+            OnDeath();
+        }
+    }
+
     bool IsGrounded()
     {
         return Physics2D.OverlapBox(
@@ -142,5 +180,11 @@ public class PlayerController : MonoBehaviour
     private bool InCamera()
     {
         return Physics2D.OverlapCircle(rb.position, 0.2f, inCamera);
+    }
+
+    public void OnDeath()
+    {
+        Time.timeScale = 0f;
+        deathPanel.SetActive(true);
     }
 }

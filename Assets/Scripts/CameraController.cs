@@ -13,6 +13,12 @@ public class CameraController : MonoBehaviour
         TargetPosition = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
     }
 
+    public void Reset()
+    {
+        TargetPosition = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
+        transform.position = TargetPosition;
+    }
+
     // Update is called once per frame
     void LateUpdate()
     {
@@ -35,9 +41,9 @@ public class CameraController : MonoBehaviour
     Vector3 RoundPosition(Vector3 v3)
     {
         return new Vector3(
-            (float)decimal.Round((decimal)v3.x),
-            (float)decimal.Round((decimal)v3.y),
-            (float)decimal.Round((decimal)v3.z)
+            Mathf.Round(v3.x),
+            Mathf.Round(v3.y),
+            Mathf.Round(v3.z)
         );
     }
 }
