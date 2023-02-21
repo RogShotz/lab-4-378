@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1932684459619291957}
   - component: {fileID: 1932684459619291958}
   - component: {fileID: 1932684459619291959}
-  - component: {fileID: 1932684459619291956}
   - component: {fileID: 1932684459619291955}
-  m_Layer: 3
+  - component: {fileID: 7401884848401343849}
+  m_Layer: 9
   m_Name: Blue Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1932684459619291912}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d1f48a9d74f514d76b31866308706013, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f843229ad72a16643bfd2cea81b66280, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.5, y: 2}
+  m_Size: {x: 1, y: 0.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -103,40 +103,20 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 0.8898355, y: -0.29855603}
-  - {x: 1.0800332, y: -0.31978306}
-  - {x: 1.2452496, y: -0.54372007}
-  - {x: 1.245253, y: -0.99717206}
-  - {x: -1.2592776, y: -1.0096813}
-  - {x: -1.2512949, y: -0.6244854}
-  - {x: -1.1067754, y: -0.45620033}
-  - {x: -0.2808544, y: 0.031197146}
-  - {x: 0.5693213, y: 0.04009755}
-  - {x: 0.8910028, y: -0.29784387}
+  - {x: 0.3502565, y: -0.124608204}
+  - {x: 0.40418303, y: -0.12328984}
+  - {x: 0.476551, y: -0.18528187}
+  - {x: 0.47950268, y: -0.34546983}
+  - {x: -0.49679595, y: -0.3460611}
+  - {x: -0.47520974, y: -0.20141122}
+  - {x: -0.2390691, y: -0.119357854}
+  - {x: -0.09868787, y: 0.014381781}
+  - {x: 0.23301387, y: 0.014874533}
+  - {x: 0.35025704, y: -0.124609925}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!95 &1932684459619291956
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1932684459619291912}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2a2dc68bd91bc44de9ce81a0d3dc60ac, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &1932684459619291955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,9 +126,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1932684459619291912}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cee6e52a5c9946b2899e60cb2c78cc4, type: 3}
+  m_Script: {fileID: 11500000, guid: af2f3a18c8401c849be6bfb5b657494c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementAmountPerUpdate: 0.01
-  animator: {fileID: 1932684459619291956}
-  type: 0
+  movementAmountPerUpdate: 5
+  triggerDistance: 20
+--- !u!50 &7401884848401343849
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932684459619291912}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

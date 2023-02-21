@@ -5,44 +5,60 @@ using UnityEngine;
 public class CarController : MonoBehaviour
 {
     private GameObject enemy;
-    public float movementAmountPerUpdate = 0.01f;
-    public Animator animator;
-    enum Type { Blue, Red, Silver};
-    [SerializeField] Type type = new Type();
+    public float movementAmountPerUpdate = 2f;
+    public float triggerDistance = 10f;
+    private bool isMoving = false;
+    private Vector3 startingPosition;
 
     void Start()
     {
         enemy = GameObject.Find("Eugene");
-        animator.speed = 0.5f;
-        switch (type)
-        {
-            case Type.Blue:
-                animator.SetInteger("Color", 0);
-                break;
-            case Type.Red:
-                animator.SetInteger("Color", 1);
-                break;
-            case Type.Silver:
-                animator.SetInteger("Color", 2);
-                break;
-            default:
-                Debug.LogError("Car color not recognized");
-                break;
-        }
+        startingPosition = transform.position;
+    }
+
+    public void Reset()
+    {
+        transform.position = startingPosition;
+        isMoving = false;
     }
 
     void Update()
     {
-        if (enemy.transform.position.x > transform.position.x + 2f)
+        if (enemy.transform.position.x > transform.position.x + triggerDistance + transform.localScale.x/2)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         } 
-        else
+        else if (isMoving)
         {
             transform.position = new Vector2(
-                transform.position.x - movementAmountPerUpdate, 
+                transform.position.x - movementAmountPerUpdate * Time.deltaTime,
                 transform.position.y
             );
         }
+    }
+
+    void FixedUpdate()
+    {
+        if (Physics2D.OverlapBox(
+            transform.position - new Vector3(
+                triggerDistance + transform.localScale.x/2f, 0, 0
+            ),
+            new Vector2(1f, 20f),
+            0,
+            LayerMask.GetMask("Player")
+        )) {
+            isMoving = true;
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(
+            transform.position - new Vector3(
+                triggerDistance + transform.localScale.x/2f, 0, 0
+            ),
+            new Vector3(1f, 20f, 0)
+        );
     }
 }
