@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class BackStoryScript : MonoBehaviour
 {
@@ -74,6 +75,8 @@ public class BackStoryScript : MonoBehaviour
             i++;
             textMeshPro.text = script[i];
             SetPageNumber();
+        } else if (i == len - 1) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
