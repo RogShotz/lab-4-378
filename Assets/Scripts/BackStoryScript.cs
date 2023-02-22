@@ -76,8 +76,13 @@ public class BackStoryScript : MonoBehaviour
             textMeshPro.text = script[i];
             SetPageNumber();
         } else if (i == len - 1) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            StartGame();
         }
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void SetPageNumber()
