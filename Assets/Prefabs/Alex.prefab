@@ -184,6 +184,7 @@ MonoBehaviour:
   jumpForce: 8
   jumpHold: 0.35
   crouchTransTime: 0.15
+  deathPanel: {fileID: 0}
   inCamera:
     serializedVersion: 2
     m_Bits: 256

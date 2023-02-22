@@ -12,7 +12,6 @@ public class CarController : MonoBehaviour
 
     void Start()
     {
-        enemy = GameObject.Find("Eugene");
         startingPosition = transform.position;
     }
 
@@ -24,11 +23,7 @@ public class CarController : MonoBehaviour
 
     void Update()
     {
-        if (enemy.transform.position.x > transform.position.x + triggerDistance + transform.localScale.x/2)
-        {
-            gameObject.SetActive(false);
-        } 
-        else if (isMoving)
+        if (isMoving)
         {
             transform.position = new Vector2(
                 transform.position.x - movementAmountPerUpdate * Time.deltaTime,
@@ -43,9 +38,9 @@ public class CarController : MonoBehaviour
             transform.position - new Vector3(
                 triggerDistance + transform.localScale.x/2f, 0, 0
             ),
-            new Vector2(1f, 20f),
+            new Vector2(1f, 40f),
             0,
-            LayerMask.GetMask("Player")
+            LayerMask.GetMask("CarTrigger")
         )) {
             isMoving = true;
         }
@@ -58,7 +53,7 @@ public class CarController : MonoBehaviour
             transform.position - new Vector3(
                 triggerDistance + transform.localScale.x/2f, 0, 0
             ),
-            new Vector3(1f, 20f, 0)
+            new Vector3(1f, 40f, 0)
         );
     }
 }

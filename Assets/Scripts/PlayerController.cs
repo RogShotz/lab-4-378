@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 6f;
     public float jumpHold = 0.35f;
     public float crouchTransTime = 0.15f;
-    public GameObject deathPanel;
+    public GameObject deathPanel, winPanel;
     private AudioSource ridingAudioSource;
     private AudioSource landingAudioSource;
     private AudioSource collisionAudioSource;
@@ -71,6 +71,12 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    public void Menu()
+    {
+        Time.timeScale = 1f;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Scenes/FinalScenes/MenuScene");
+    }
+
     void FixedUpdate()
     {
         InCameraUpdates(); // if (!InCamera()) {...}
@@ -104,7 +110,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("IsJumping", false);
             }
 
-            if (!ridingAudioSource.isPlaying)
+            if (!ridingAudioSource.isPlaying && Time.timeScale != 0)
             {
                 ridingAudioSource.Play();
                 landingAudioSource.Play();
@@ -192,9 +198,20 @@ public class PlayerController : MonoBehaviour
         {
             collisionAudioSource.Play();
         }
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Fatal"))
+        if (
+            collision.gameObject.layer == LayerMask.NameToLayer("Fatal") ||
+            collision.gameObject.layer == LayerMask.NameToLayer("Eugene")
+        )
         {
             OnDeath();
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Win"))
+        {
+            OnWin();
         }
     }
 
@@ -224,7 +241,17 @@ public class PlayerController : MonoBehaviour
 
     public void OnDeath()
     {
+        if (ridingAudioSource.isPlaying) ridingAudioSource.Pause();
+
         Time.timeScale = 0f;
         deathPanel.SetActive(true);
+    }
+
+    public void OnWin()
+    {
+        if (ridingAudioSource.isPlaying) ridingAudioSource.Pause();
+
+        Time.timeScale = 0f;
+        winPanel.SetActive(true);
     }
 }
